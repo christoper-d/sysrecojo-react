@@ -4,7 +4,8 @@ import { DashboardRoutes } from '../components/routes/DashboardRoutes'
 
 export const AppRouter = () => {
   return (
-    <Routes>
+    // <Routes basename={process.env.PUBLIC_URL}>
+    <Routes >
         <>
           <Route path="/dashboard/*" element={<DashboardRoutes />} />
           <Route path="*" element={<Navigate replace to="/dashboard" />} />

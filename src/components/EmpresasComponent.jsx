@@ -275,13 +275,13 @@ export const EmpresasComponent = () => {
   return (
     <React.Fragment>
       <Box sx={{ display: 'flex', flex: 1 }}>
-        <Box sx={{ display: { xs: 'none', md: 'block' } }}>
+        <Box sx={{ display: { xs: 'block', md: 'block' } }}>
           <Box>
-            <FilterPanel title='Empresas' data={data} onItemSelect={handleEmpresaSelect} />
+            <FilterPanel title='Empresas' data={data} onItemSelect={handleEmpresaSelect} option={1}/>
           </Box>
           {selectedEmpresa && (
             <Box>
-              <FilterPanel title='Establecimientos' data={selectedEmpresa.Establecimientos} onItemSelect={handleEstablecimientoSelect} endComponent={true} />
+              {/* <FilterPanel title='Establecimientos' data={selectedEmpresa.Establecimientos} onItemSelect={handleEstablecimientoSelect} endComponent={true} option={2}/> */}
             </Box>
           )}
         </Box>
@@ -332,7 +332,7 @@ export const EmpresasComponent = () => {
             icon={<SpeedDialIcon />}
             tooltipTitle="Agregar Establecimiento"
             tooltipOpen={true}
-            onClick={() => handleShowDialogOpen("Agregar establecimiento",1)}
+            onClick={() => handleShowDialogOpen("Agregar establecimiento",2)}
           />
         </SpeedDial>
       </Box>

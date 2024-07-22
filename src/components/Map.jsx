@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import { DialogToRegistro } from './dialogs/DialogToRegistro';
 
 const Map = ({ locations, selectedEstablecimiento }) => {
   console.log('Locations:', locations);
@@ -10,10 +11,11 @@ const Map = ({ locations, selectedEstablecimiento }) => {
   const userMarkerRef = useRef(null);
 
   const [open, setOpen] = useState(false);
-  const [selectedLocation, setSelectedLocation] = useState(null);
+  const [selectedLocation, setSelectedLocation] = useState('');
 
   const handleClickOpen = (location) => {
-    setSelectedLocation(location);
+    console.log(location);
+    setSelectedLocation(location.name);
     setOpen(true);
   };
 
@@ -105,7 +107,10 @@ const Map = ({ locations, selectedEstablecimiento }) => {
       // Center on selected establishment if exists
       if (selectedEstablecimiento && selectedEstablecimiento.latitud && selectedEstablecimiento.longitud) {
         map.setView([selectedEstablecimiento.latitud, selectedEstablecimiento.longitud], 18); // Aumentar el zoom a 18 para acercarse mucho
-        L.marker([selectedEstablecimiento.latitud, selectedEstablecimiento.longitud]).addTo(map);
+        L.marker([selectedEstablecimiento.latitud, selectedEstablecimiento.longitud])
+          .addTo(map)
+          .on('click',()=>{handleClickOpen(selectedEstablecimiento)});
+        // handleClickOpen(selectedEstablecimiento);
       }
     };
 
@@ -122,20 +127,7 @@ const Map = ({ locations, selectedEstablecimiento }) => {
   return (
     <Box sx={{ flex: 1 ,backgroundColor: '#423D51', }}>
       <Box id="map" sx={{ borderBottomLeftRadius:{sx:'0px',md:'20px'} ,borderTopLeftRadius:{sx:'0px',md:'20px'}, width: '100%', height: '100vh' }}></Box>
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>{selectedLocation?.name}</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            <strong>Dirección:</strong> {selectedLocation?.address}<br/>
-            <strong>Teléfono:</strong> {selectedLocation?.telefono}
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Cerrar
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <DialogToRegistro open={open} onClose={handleClose} establecimiento={selectedLocation}/>
     </Box>
   );
 };
