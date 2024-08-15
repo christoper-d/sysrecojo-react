@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogActions, DialogTitle } from '@mui/material'
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 
 const DialogToDelete = ({ open, onClose,selectedItem }) => {
@@ -15,10 +15,17 @@ const DialogToDelete = ({ open, onClose,selectedItem }) => {
   return (
     <Dialog open={open} onClose={onClose}>
         <DialogTitle>Eliminar: {nombre}</DialogTitle>
-        {/*  */}
+        <DialogContent>
+          <Typography>
+            ¿Estas seguro de eliminar esta empresa?
+          </Typography>
+        </DialogContent>
         <DialogActions>
-          <Button onClick={onClose} color="primary">
+          <Button variant='contained' onClick={onClose} color="secondary">
             Close
+          </Button>
+          <Button variant='contained' onClick={onClose} color="warning">
+            Eliminar
           </Button>
         </DialogActions>
       </Dialog>

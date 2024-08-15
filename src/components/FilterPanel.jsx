@@ -3,7 +3,7 @@ import { Box, Typography, Divider, List, ListItem, ListItemText, Button, Menu, M
 import { DialogToAdd } from './dialogs/DialogToAdd';
 import DialogToRecojo from './dialogs/DialogToRecojo';
 import DialogToDelete from './dialogs/DialogToDelete';
-import { CarCrashRounded, PendingActionsOutlined } from '@mui/icons-material';
+import { CarCrashOutlined, CarCrashRounded, DeleteOutline, DomainAddOutlined, EditOutlined, PendingActionsOutlined, TwoWheelerOutlined } from '@mui/icons-material';
 
 const FilterPanel = ({ drawerWidth = 200, title = '', data = [], onItemSelect}) => {
   const [selectedItem, setSelectedItem] = useState(null);
@@ -178,10 +178,10 @@ const FilterPanel = ({ drawerWidth = 200, title = '', data = [], onItemSelect}) 
             : undefined
         }
       >
-        <MenuItem onClick={handleEdit} > <PendingActionsOutlined/> Editar</MenuItem>
-        <MenuItem onClick={handleDelete}>Eliminar</MenuItem>
-        <MenuItem onClick={handleRecojo}>Solicitar recojo</MenuItem>
-        <MenuItem onClick={handleAddEstablecimiento}>Añadir Establecimiento</MenuItem>
+        <MenuItem onClick={handleEdit} > <EditOutlined sx={{mr:1}}/> Editar</MenuItem>
+        <MenuItem onClick={handleDelete} > <DeleteOutline sx={{mr:1}}/> Eliminar</MenuItem>
+        <MenuItem onClick={handleRecojo}> <TwoWheelerOutlined sx={{mr:1}}/> Solicitar recojo</MenuItem>
+        <MenuItem onClick={handleAddEstablecimiento}> <DomainAddOutlined sx={{mr:1}}/> Añadir Establecimiento</MenuItem>
       </Menu>
 
 

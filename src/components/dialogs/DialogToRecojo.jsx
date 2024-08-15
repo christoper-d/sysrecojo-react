@@ -11,12 +11,23 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
+import DatePicker, { registerLocale } from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
+import { es } from 'date-fns/locale';
+
+// Registra la localización en español
+registerLocale('es', es);
 
 const DialogToRecojo = ({ open, onClose, selectedItem }) => {
   console.log(selectedItem);
 
   const [collectionItem, setCollectionItem] = useState('');
   const [note, setNote] = useState('');
+
+  const [selectedDate, setSelectedDate] = useState(null);
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+  };
 
   const [nombre, setNombre] = useState('');
   const [ruc, setRuc] = useState('');
@@ -32,9 +43,8 @@ const DialogToRecojo = ({ open, onClose, selectedItem }) => {
   };
 
   const handleSubmit = () => {
-    // Aquí puedes manejar el envío del formulario, por ejemplo, hacer una llamada a la API
     console.log({
-      establishmentId,
+      establishmentId: selectedItem?.id,
       collectionItem,
       note,
     });
@@ -70,13 +80,24 @@ const DialogToRecojo = ({ open, onClose, selectedItem }) => {
             variant="outlined"
           />
         </Box>
+        <Box>
+          <Typography variant="body1">Seleccione la fecha para el recojo:</Typography>
+          <DatePicker
+            selected={selectedDate}
+            onChange={handleDateChange}
+            dateFormat="yyyy/MM/dd"
+            minDate={new Date()} // Bloquea las fechas anteriores al día actual
+            locale="es" // Configura la localización en español
+            customInput={<TextField fullWidth />}
+          />
+        </Box>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose} color="secondary">
+        <Button variant='contained' onClick={onClose} color="secondary">
           Cancelar
         </Button>
-        <Button onClick={handleSubmit} color="primary">
-          Enviar
+        <Button variant='contained' onClick={handleSubmit} color="primary">
+          Crear
         </Button>
       </DialogActions>
     </Dialog>
